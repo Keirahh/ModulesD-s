@@ -63,23 +63,23 @@ Class rollDice_Widget extends WP_Widget {
 		} 
 	}
 
-	static function uninstall(){
-		global $wpdb;
-		$table_name = $wpdb->prefix . "lancerDes"; 
-		$sql = "DROP TABLE IF EXISTS $table_name;";
-		$wpdb->query($sql);
-	}
+	// static function uninstall(){
+	// 	global $wpdb;
+	// 	$table_name = $wpdb->prefix . "lancerDes"; 
+	// 	$sql = "DROP TABLE IF EXISTS $table_name;";
+	// 	$wpdb->query($sql);
+	// }
 
 	public function traitement(){
 		$classDice = new dice;
 		$funct = $classDice->getRolls();
-		if(!empty($_POST)){
-			global $wpdb;
-			$date = new DateTime();
-			$table_name = $wpdb->prefix . "lancerDes"; 
-			$sql = "INSERT INTO $table_name (`id` , `date` , `jet`, `userid`)VALUES(2, 1/1/1, '$funct', 1);";
-			$wpdb->query($sql);
-		}
+		// if(!empty($_POST)){
+		// 	global $wpdb;
+		// 	$date = new DateTime();
+		// 	$table_name = $wpdb->prefix . "lancerDes"; 
+		// 	$sql = "INSERT INTO $table_name (`id` , `date` , `jet`, `userid`)VALUES(2, 1/1/1, '$funct', 1);";
+		// 	$wpdb->query($sql);
+		// }
 
 	}
 
