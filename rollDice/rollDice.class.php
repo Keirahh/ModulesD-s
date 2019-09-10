@@ -26,14 +26,6 @@ Class rollDice_Widget extends WP_Widget {
 		<?php
 	}
 
-	public function css(){
-		wp_register_style(
-			'style',
-			plugin_dir_url(__FILE__).'/style/style.css'
-		);
-		wp_enqueue_style('style');
-	}
-
 
 	public function widget( $args, $instance ) {
 		$title = apply_filters( 'widget_title', $instance['title'] );
@@ -53,7 +45,7 @@ Class rollDice_Widget extends WP_Widget {
 		if ($wpdb->get_var("SHOW TABLES LIKE '$table_name'")!= $table_name) {
 			$sql = "CREATE TABLE `$table_name`
 			(
-			`id` int(11) NOT NULL AUTO INCREMENT,
+			`id` int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
 			`date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
 			`jet` text COLLATE utf8mb4_unicode_ci NOT NULL,
 			`userid` int(11) NOT NULL)
@@ -63,25 +55,25 @@ Class rollDice_Widget extends WP_Widget {
 		} 
 	}
 
-	// static function uninstall(){
-	// 	global $wpdb;
-	// 	$table_name = $wpdb->prefix . "lancerDes"; 
-	// 	$sql = "DROP TABLE IF EXISTS $table_name;";
-	// 	$wpdb->query($sql);
-	// }
+	static function uninstall(){
+		global $wpdb;
+		$table_name = $wpdb->prefix . "lancerDes";
+		$wpdb->query( "DROP TABLE IF EXISTS $table_name" );
+	}
+
+	public function addData(){
+		$classDice = new dice;
+		$jet = $classDice->getRolls();
+		$userId = get_current_user_id();
+		global $wpdb;
+		$table_name = $wpdb->prefix . "lancerDes";
+		$test = $wpdb->insert($table_name, array('jet' => $jet, 'userid' => $userId));
+	}
 
 	public function traitement(){
 		$classDice = new dice;
 		$funct = $classDice->getRolls();
-		// if(!empty($_POST)){
-		// 	global $wpdb;
-		// 	$date = new DateTime();
-		// 	$table_name = $wpdb->prefix . "lancerDes"; 
-		// 	$sql = "INSERT INTO $table_name (`id` , `date` , `jet`, `userid`)VALUES(2, 1/1/1, '$funct', 1);";
-		// 	$wpdb->query($sql);
-		// }
 
 	}
-
 
 }

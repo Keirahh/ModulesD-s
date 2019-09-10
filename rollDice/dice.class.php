@@ -8,7 +8,7 @@ Class dice{
 			$rollsDice = array();
 			foreach ($_POST as $key => $value){
 				foreach($_POST as $key => $value){
-					if($value ==! 0){
+					if($value != 0){
 						$rollsDice[$key] = $value;
 					}
 				}
@@ -25,16 +25,10 @@ Class dice{
 				$implodeRandom = implode(",",$arrayRandom);
 				$resultat .=  $key. "d" .$value. "[".$implodeRandom."] ";
 			}
-
-		$resultats = substr_replace($resultat, "=" , -1);
-		$sum = array_sum($temp);
-		$resulatFinal = $resultat. " = " .$sum;
+			$resultats = substr_replace($resultat, "=" , -1);
+			$sum = array_sum($temp);
+			$resultatFinal = $resultat. " = " .$sum;
 		}
-
-		return $resulatFinal;	
-
-
+		return $resultatFinal;
 	}
-
-
 }
